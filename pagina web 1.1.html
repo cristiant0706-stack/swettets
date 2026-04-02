@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Proyecto Omega - Agencia de Desarrollo Digital">
+    <title>Proyecto Omega | Elite Digital</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #4f46e5;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #f43f5e;
+            --glass: rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Navegación Estilo Glassmorphism */
+        nav {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 10%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section Repotenciada */
+        header#inicio {
+            height: 90vh;
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        header h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #818cf8, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .btn-main {
+            background: var(--primary);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+        }
+
+        .btn-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Contenedor Principal */
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Cards de Servicios */
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        article.service-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            border: 1px solid #eee;
+        }
+
+        article.service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        /* Portafolio con Overlay */
+        .portafolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .proyecto {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 300px;
+        }
+
+        .proyecto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .proyecto:hover .overlay { opacity: 1; }
+        .proyecto:hover img { transform: scale(1.1); }
+
+        /* Formulario Estilizado */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: 2px solid var(--primary);
+            border-color: transparent;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 10% 20px;
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 15px; }
+            .contact-container { grid-template-columns: 1fr; }
+            header h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">OMEGA_STUDIO</div>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#portafolio">Proyectos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <header id="inicio">
+        <h1>Diseño que Transforma</h1>
+        <p>No solo hacemos código, creamos experiencias digitales que impulsan tu marca al siguiente nivel, bro.</p>
+        <a href="#contacto" class="btn-main">Hablemos de tu idea</a>
+    </header>
+
+    <main>
+        <section id="servicios">
+            <h2>Nuestra Especialidad</h2>
+            <div class="servicios-grid">
+                <article class="service-card">
+                    <span class="material-symbols-outlined icon">terminal</span>
+                    <h3>Desarrollo Web Fullstack</h3>
+                    <p>Webs rápidas, seguras y escalables usando las últimas tecnologías como React y Node.</p>
+                </article>
+
+                <article class="service-card">
+                    <span class="material-symbols-outlined icon">palette</span>
+                    <h3>Diseño UI/UX Pro</h3>
+                    <p>Interfaces intuitivas que enamoran a tus usuarios desde el primer clic.</p>
+                </article>
+
+                <article class="service-card">
+                    <span class="material-symbols-outlined icon">trending_up</span>
+                    <h3>Estrategia SEO</h3>
+                    <p>Posicionamos tu marca en la cima de los buscadores para que los clientes te encuentren.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="portafolio" style="background: #f1f5f9; width: 100vw; margin-left: calc(-50vw + 50%); padding: 100px 5%;">
+            <h2>Trabajos Recientes</h2>
+            <div class="portafolio-grid">
+                <div class="proyecto">
+                    <img src="https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=600" alt="Ecommerce">
+                    <div class="overlay">
+                        <h3>Moda Urbana Pro</h3>
+                        <p>Plataforma de ventas online</p>
+                    </div>
+                </div>
+                <div class="proyecto">
+                    <img src="https://images.unsplash.com/photo-1540350394557-8d14678e7f91?auto=format&fit=crop&w=600" alt="App">
+                    <div class="overlay">
+                        <h3>Task Master</h3>
+                        <p>App de productividad 3D</p>
+                    </div>
+                </div>
+                <div class="proyecto">
+                    <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600" alt="Viajes">
+                    <div class="overlay">
+                        <h3>Nomad Blog</h3>
+                        <p>Diseño minimalista para viajeros</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto">
+            <div class="contact-container">
+                <div>
+                    <h2>¿Listo para el cambio?</h2>
+                    <p>Cuéntame qué tienes en mente. Ya sea una web corporativa o una idea loca de app, aquí la hacemos realidad con calma y profesionalismo.</p>
+                    <br>
+                    <p><strong>Ubicación:</strong> Remoto / Global</p>
+                    <p><strong>Email:</strong> contacto@proyectoomega.com</p>
+                </div>
+                
+                <form action="#" method="POST">
+                    <label>Tu Nombre</label>
+                    <input type="text" placeholder="Ej. Juan Pérez" required>
+                    
+                    <label>Correo Electrónico</label>
+                    <input type="email" placeholder="tu@email.com" required>
+                    
+                    <label>Tipo de Proyecto</label>
+                    <select>
+                        <option>Desarrollo Web</option>
+                        <option>Diseño de Marca</option>
+                        <option>Consultoría</option>
+                    </select>
+                    
+                    <label>Mensaje</label>
+                    <textarea rows="4" placeholder="¿Cómo podemos ayudarte, bro?"></textarea>
+                    
+                    <br><br>
+                    <button type="submit" class="btn-main" style="width: 100%;">Enviar Propuesta</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>OMEGA</h3>
+                <p>Elevando el estándar del desarrollo digital desde 2026.</p>
+            </div>
+            <div>
+                <h4>Navegación</h4>
+                <p>Sobre nosotros</p>
+                <p>Términos de servicio</p>
+                <p>Privacidad</p>
+            </div>
+            <div>
+                <h4>Síguenos</h4>
+                <p>Instagram | Twitter | LinkedIn</p>
+            </div>
+        </div>
+        <div style="border-top: 1px solid #334155; padding-top: 20px; text-align: center;">
+            <p><small>&copy; 2026 Proyecto Omega. Hecho con calma por y para la comunidad.</small></p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+<form action="https://formspree.io/f/cristiant0706@gmail.com" method="POST">
+    <label>Tu Nombre</label>
+    <input type="text" name="nombre" placeholder="Ej. Juan Pérez" required>
+    
+    <label>Correo Electrónico</label>
+    <input type="email" name="email" placeholder="tu@email.com" required>
+    
+    <label>Tipo de Proyecto</label>
+    <select name="servicio">
+        <option value="Web">Desarrollo Web</option>
+        <option value="Diseño">Diseño de Marca</option>
+        <option value="Consultoria">Consultoría</option>
+    </select>
+    
+    <label>Mensaje</label>
+    <textarea name="mensaje" rows="4" placeholder="¿Cómo podemos ayudarte, bro?"></textarea>
+    
+    <br><br>
+    <button type="submit" class="btn-main" style="width: 100%;">Enviar Propuesta</button>
+</form>
+
+<input type="hidden" name="_next" value="https://tu-pagina-web.com/gracias.html">
